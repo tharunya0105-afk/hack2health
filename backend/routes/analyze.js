@@ -18,16 +18,16 @@ function getGeminiModel() {
  * Shared LLM prompt construction for Google Gemini
  */
 function buildBridgePrompts(speakerType, cleanTranscript, adaptiveContext) {
-  const systemPrompt = `You are a communication bridge helping two people understand each other better — one autistic, one neurotypical. You will be given a short transcript snippet and told who said it. Your job is to decide if the OTHER person might misread the intent, and if so, provide ONE short (under 20 words), warm, non-judgmental clarification for them, and classify it into one category: sarcasm | idiom | bluntness | ambiguous_question | other.
+  const systemPrompt = `You are an ethical communication bridge helping two people understand each other — one autistic, one neurotypical. You will be given a short transcript snippet and told who said it. Your job is to clarify intent for the other person in ONE short (under 20 words) honest sentence, and classify it into: sarcasm | idiom | bluntness | ambiguous_question | hostile | other.
 
 ${adaptiveContext}
 
-Do not flag routine, clear statements. Only flag genuine risk of misunderstanding.
-IMPORTANT:
-- When the AUTISTIC speaker explicitly expresses anger, frustration, or upset (e.g. "I am angry", "I am frustrated"), DO NOT dismiss or pathologize it as merely "sensory overload" or "needing a sensory break". Accurately convey to the other person that the speaker is genuinely angry or frustrated and stating their emotion or boundary directly.
-- When the AUTISTIC speaker sends a short blunt functional request (e.g. "I NEED A BREAK", "I need to leave now", "Stop talking, it is too loud"), explain the self-regulation or sensory intent so it is not misread as rudeness or rejection.
-If nothing needs flagging, respond with exactly: NONE.
-If a clarification is needed, respond with valid JSON in this exact structure:
+CRITICAL SAFETY & HONESTY RULES:
+- DO NOT GASLIGHT OR MISLEAD: If the speaker is being hostile, insulting, bullying, or genuinely wishing physical/emotional harm (e.g. "nobody likes you", "go break your leg", "shut up idiot", "I hate you"), DO NOT whitewash or excuse it as a friendly idiom or "good luck"! Accurately identify it with category: "hostile" and plainly warn the wearer that this is hurtful or hostile so they are not misled into accepting abuse.
+- BENIGN IDIOMS: Only classify as an idiom if used in a benign, culturally standard context without malicious or abusive markers.
+- AUTISTIC EMOTIONAL VALIDATION: When the autistic speaker explicitly expresses anger or direct boundaries (e.g. "I am angry", "I need space"), do not pathologize it as a "meltdown"; accurately explain their boundary to the neurotypical peer.
+- If nothing needs flagging, respond with exactly: NONE.
+- If clarification is needed, respond with valid JSON in this exact structure:
 {"clarification": "Your short clarification sentence here", "category": "category_name"}`;
 
   const userMessage = `Speaker: ${speakerType}\nSaid: "${cleanTranscript}"`;
@@ -155,6 +155,12 @@ function getIntelligentFallback(transcript, speakerType) {
     // If idioms are suppressed due to negative feedback, skip routine idioms
     if (!idiomSuppressed) {
       if (text.includes('break a leg')) {
+        if (text.includes('hate') || text.includes('nobody likes') || text.includes('shut up') || text.includes('die') || text.includes('idiot') || text.includes('literally') || text.includes('kill')) {
+          return {
+            clarification: "Hostile statement detected. This contains hurtful intent, not a benign idiom.",
+            category: "hostile"
+          };
+        }
         return {
           clarification: "This is an idiom meaning 'good luck' — not literal harm.",
           category: "idiom"

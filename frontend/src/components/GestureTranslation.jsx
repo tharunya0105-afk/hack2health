@@ -333,11 +333,11 @@ export function GestureTranslation({
                   }
                 }
 
-                // Euclidean distance threshold for matching hand gesture
-                if (lowestDistance < 0.85 && bestMatch) {
-                  // Gating: dynamic stim gestures require active motion/oscillation;
-                  // static boundary gestures require a steady hold (>= 3 frames).
-                  const isDynamicStim = (bestMatch.label + ' ' + (bestMatch.description || '')).toLowerCase().match(/stim|vibrat|flap|excit/);
+                // Adaptive Euclidean distance threshold: tighter for static gestures to avoid false triggers on resting hands
+                const isDynamicStim = (bestMatch.label + ' ' + (bestMatch.description || '')).toLowerCase().match(/stim|vibrat|flap|excit/);
+                const distanceThreshold = isDynamicStim ? 0.72 : 0.52;
+
+                if (lowestDistance < distanceThreshold && bestMatch) {
                   let passesTemporalFilter = true;
 
                   if (isDynamicStim) {
@@ -347,6 +347,16 @@ export function GestureTranslation({
                   } else {
                     if (!isSteadyHold) {
                       passesTemporalFilter = false;
+                    }
+                    // For fist-tuck / sensory-break gestures, verify fingers are genuinely curled into the palm,
+                    // preventing open hands touching the face, cheeks, or chin from false-firing.
+                    const isTuckGesture = (bestMatch.label + ' ' + (bestMatch.description || '')).toLowerCase().match(/break|tuck|fist/);
+                    if (isTuckGesture) {
+                      const dIndex = Math.hypot(hand[8].x - hand[0].x, hand[8].y - hand[0].y);
+                      const dMiddle = Math.hypot(hand[12].x - hand[0].x, hand[12].y - hand[0].y);
+                      if (dIndex > 0.28 || dMiddle > 0.28) {
+                        passesTemporalFilter = false; // Open fingers touching face is not a fist-tuck
+                      }
                     }
                   }
 
