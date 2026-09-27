@@ -82,7 +82,7 @@ export function HowItWorks() {
             5. The Social Cliff: Homeschool & Special-Ed Re-Entry
           </h3>
           <ul className="text-xs text-slate-300 space-y-2 list-disc pl-4 leading-relaxed">
-            <li>Over 30% of autistic students transition through homeschooling or segregated special schools. When entering colleges or workplaces, they encounter <strong className="text-white">"The Social Cliff"</strong> — high anxiety navigating unwritten lunchroom rules, casual banter, and group project dynamics.</li>
+            <li>Over 40% of autistic students spend their school years in segregated classrooms or separate schools (NCES Table 204.60). When entering colleges or workplaces, they encounter <strong className="text-white">"The Social Cliff"</strong> — high anxiety navigating unwritten lunchroom rules, casual banter, and group project dynamics.</li>
             <li><strong className="text-white">LifeConnect Flight Simulator:</strong> Provides cognitive behavioral scaffolding with realistic peer scenarios, unwritten intent decoding, and multi-tier response palettes so students can rehearse real situations without anxiety.</li>
             <li>Dr. Damian Milton's <strong className="text-white">Double Empathy Problem (2012)</strong> proves social friction is bi-directional: autistic people communicate effectively with each other; misunderstandings arise from mismatched neurotypes, not intrinsic brokenness.</li>
           </ul>

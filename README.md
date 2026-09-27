@@ -1,81 +1,65 @@
 # NeuroBridge: LifeConnect & SocialOrbit 🧠🪐🛡️
-> **The National-Level Assistive Communication, Social Re-Entry & Safety Ecosystem for Autistic Individuals.**
-> *Official Submission for Hack2Health 2.0 Healthcare Innovation Hackathon*
->
+> **Assistive Communication, Social Re-Entry & Safety Ecosystem for Autistic Youth & Young Adults.**  
+> *Hack2Health 2.0 Healthcare Innovation Hackathon Submission*  
+>  
 > 🌐 **Try it Live (Production)**: [https://hack2health.vercel.app](https://hack2health.vercel.app)
 
 ---
 
-## 🎯 The Core Problem: The Social Cliff & Isolation
+## 🎯 Primary Problem & Focused User Persona
 
-Many autistic youth and young adults are **homeschooled or attend segregated special education schools**. While these environments provide tailored academic pacing, they also unintentionally create a profound **social barrier**:
+### Primary Focused Persona: Autistic Youth & Young Adults in Social Transition
+NeuroBridge is focused specifically on **verbal and semi-verbal autistic adolescents and young adults (ages 14–24)** navigating the transition from homeschooling or segregated special education environments into mainstream social settings (high school cafeterias, university study groups, workplace meetings, and community clubs).
 
-1. **Isolation from Mainstream Peer Life**: Homeschooled and special-school autistic students lack natural everyday exposure to casual peer environments. When stepping into college campuses, workplaces, or community spaces, they encounter **"The Social Cliff"** — high anxiety, fear of missteps, and unfamiliarity with unwritten social norms.
-2. **Hidden Subtext & Double-Empathy Miscommunication**: Casual peer life runs on implicit nuance: cafeteria banter, light teasing vs bullying, ambiguous questions, and indirect sarcasm. Autistic directness is frequently misread as rudeness, while neurotypical subtext is taken literally, triggering misunderstandings and withdrawal.
-3. **Severe Sensory Overload & Lack of Safe Practice**: Without a safe sandbox to rehearse everyday interactions (lunchrooms, group projects, cafe ordering), the risk of cognitive exhaustion and autistic burnout is immense.
-4. **Physical Vulnerability in Crisis**: **1 in 3 autistic children elope** (wander into danger), and many become nonverbal under extreme stress, unable to call for help when an emergency occurs.
-
-Existing tools each tackle only **isolated fragments**: an AAC app, an idiom dictionary, or a parent-controlled surveillance tracker. **None equip the autistic person to confidently step into everyday peer life and take part in society with autonomy.**
+### The Challenge: "The Social Cliff" & The Double Empathy Gap
+1. **Educational Isolation & Segregation**: According to NCES Digest Table 204.60 and U.S. Dept. of Education IDEA Section 618 data, **over 40% of autistic students spend the majority or entirety of their school day in segregated classrooms (<40% regular class time) or separate special education schools**. When transitioning into mainstream post-secondary environments, they encounter the "Social Cliff"—abrupt loss of structured aides and severe anxiety around unwritten social expectations.
+2. **Double-Empathy Miscommunication**: Grounded in Dr. Damian Milton's *Double Empathy Problem (2012)*, miscommunication between autistic and neurotypical individuals is a two-way mismatch in communicative norms, not a one-way autistic deficit. In casual peer interactions, autistic directness is often misread as rudeness, while neurotypical sarcasm and idioms are taken literally.
+3. **Situational Mutism & Emergency Vulnerability**: During moments of acute sensory overwhelm, severe anxiety, or shutdown, many autistic adolescents and young adults experience situational mutism—a temporary inability to produce spoken words despite wanting to communicate. Transitioning youth face heightened physical and communicative vulnerability if disorientation or an emergency occurs while they are unable to verbally call for help.
 
 ---
 
-## 💡 The Solution: 4 Pillars of Normal Life Integration
-
-**NeuroBridge solves the full journey — from social re-entry practice to live peer dialogue and crisis safety:**
+## 💡 The Solution: 4 Pillars of Focused Everyday Support
 
 ### 1. 🪐 LifeConnect: The Social Re-Entry Flight Simulator
-A realistic, interactive scenario simulator designed specifically for homeschooled and segregated autistic youth transitioning into mainstream life:
-- **School / Campus Cafeteria**: Practicing approaching a table, reading open vs closed body posture, and joining casual group chatter.
-- **Group Project Collaboration**: Dividing tasks fairly, clarifying vague assignments, and giving factual input without sounding blunt.
-- **Special-Interest Clubs**: Introducing yourself, connecting over shared passions (robotics, gaming, science), and avoiding info-dump overwhelm.
-- **Casual Banter vs Teasing**: Deciphering friendly peer ribbing from unkind teasing, with safe, dignified response pathways.
-- **Ordering at a Busy Public Cafe**: Navigating rapid counter transactions and ambient noise with confidence.
-- **The Graceful Recharge Exit**: Excusing oneself smoothly when social battery depletes without guilt or peer confusion.
-- **Features in Every Scenario**:
-  - 👁️ **Social Decoder Ring**: Deciphers unwritten body language, tone, and emotional cues.
-  - ✨ **Empowerment Coach Tips**: Neuro-affirming, encouraging feedback explaining why your response succeeded.
-  - ⚡ **Multi-Tier Response Palettes**: 3 authentic pathways per turn (*Casual & Warm*, *Direct & Honest*, *Low-Energy AAC*), plus free typing/speech.
-  - 🔋 **Live Social Battery Gauge**: Real-time energy drain and recovery tracking.
-  - 🔊 **Voice Audio Playback**: Realistic peer spoken inflection via Web Speech Synthesis.
+An interactive scenario simulator designed for youth preparing to step into mainstream peer environments:
+- **Scenarios**: Campus Cafeteria, Group Project Collaboration, Special-Interest Clubs, Friendly Banter vs. Teasing, Cafe Ordering, and Tactful Sensory Exits.
+- **Social Decoder Ring**: Identifies implicit body language, posture, and tone markers.
+- **Empowerment Coach**: Affirming, strengths-based explanations for conversational pacing.
+- **Multi-Tier Response Palettes**: Three dignity-preserving response pathways per turn (*Casual & Warm*, *Direct & Honest*, *Low-Energy AAC*), plus free speech/typing.
+- **Live Social Battery Gauge**: Real-time visualization of cognitive energy drain and recovery.
 
 ### 2. 🤝 Inclusive Peer Circles & Passion-Anchored Connection
-- Connects homeschooled and special-school students with inclusive peer buddies and neuro-affirming interest circles:
-  - 🤖 **Robotics & Creative Coding** (Python, Arduino, Raspberry Pi, Blender)
-  - 🎨 **Digital Art & Worldbuilding** (Procreate, Anime/Manga, Sci-Fi Lore)
-  - 🎮 **Minecraft & Indie Game Crafters** (Redstone engineering, low-stimulation servers)
-  - 🔭 **Astronomy & Deep Science** (Astrophysics, James Webb discoveries)
-- **Parallel Play & Body Doubling**: Quiet co-working spaces with low stimulation — text-first, camera optional, zero forced small talk.
-- **Interactive Peer Buddy Chat**: One-click icebreaker prompts and live simulated buddy messaging.
+- Connects transitioning students around authentic shared interests rather than forced small talk:
+  - 🤖 **Robotics & Creative Coding** (Python, Arduino, Raspberry Pi)
+  - 🎨 **Digital Art & Worldbuilding** (Procreate, Sci-Fi Lore)
+  - 🎮 **Minecraft & Indie Game Crafters** (Low-stimulation servers)
+  - 🔭 **Astronomy & Astrophysics** (James Webb discoveries)
+- **Parallel Play & Body Doubling**: Low-stimulation virtual study rooms—text-first, camera optional, zero forced socialization.
 
 ### 3. 🧠 Multimodal Conversation Bridge with Live Social Wingman
-- **Unified Timeline**: Speech (Web Speech API), Typed AAC, On-Screen Switch Scanning, and Calibrated Stims/Gestures flow into **one shared conversation**.
-- **Two-Way Subtext Translation**: Detects idioms, sarcasm, bluntness, and ambiguous questions in *both directions*, showing warm clarification cards badged **"LIVE AI"** (Google Gemini) or **"OFFLINE ENGINE"**.
-- **Live Social Wingman**:
-  - 📊 **Turn-Taking Flowmeter**: Real-time visual balance indicator encouraging healthy reciprocal dialogue.
-  - 💡 **Special-Interest Bridge**: Connects what peers say to the wearer's passions (e.g. Robotics).
-  - ⚡ **Quick Prompt Chips**: Instant follow-up, empathy, and validation phrases.
-  - 🚪 **Tactful Exit Card**: One-tap boundary phrase: *"I've reached my sensory limit, heading out to recharge. Had great fun, talk soon!"*
+- **Unified Conversation Timeline**: Spoken audio (Web Speech API), Typed AAC, Switch-Scanning Keyboard, and Calibrated Stims/Gestures flow into **one shared conversation stream**.
+- **Bidirectional Subtext Clarification**: Driven by Milton's Double Empathy framework:
+  - *Autistic &rarr; Neurotypical*: Explains factual directness, sensory limits, and task-switching bottlenecks to peer partners.
+  - *Neurotypical &rarr; Autistic*: Deciphers idioms, sarcasm, and ambiguous workplace phrasing for the wearer.
+  - Transparent engine badging: **LIVE AI** (Google Gemini) or **OFFLINE ENGINE** (on-device heuristic fallback).
+- **Live Social Wingman**: Visual turn-taking balance flowmeter, interest-bridging prompts, and a one-tap **Tactful Exit Card** (*"I've reached my sensory limit, heading out to recharge. Had great fun, talk soon!"*).
 
-### 4. 🛡️ Autonomous Safety Net with Real Guardian Dispatch
-- **Wearer Sovereignty**: The wearer controls every sensor and feature — no continuous surveillance or GPS breadcrumbing.
-- **Biometric Emergency Trigger**: Real G-Force impact spike (>2.6G) + stillness detection, distress triggers, and manual SOS.
-- **Real-Time Guardian Console**: Live updates via **Server-Sent Events (SSE)** + **Real HTML Email dispatch** (Nodemailer) with Google Maps GPS link and the wearer's Communication ID.
-- **Guardian Remote Link**: Open `/?view=guardian` on any phone or second screen for a live guardian command center.
+### 4. 🛡️ Sovereign Safety Net with Emergency Dispatch
+- **Wearer Sovereignty**: The wearer controls all sensor permissions—no background surveillance or continuous tracking.
+- **Crisis Trigger**: High-G impact detection (>2.6G) with post-impact stillness, acute distress trigger, and manual SOS.
+- **Guardian Dispatch**: Real-time updates via Server-Sent Events (SSE) and transactional HTML email dispatch (Resend API) containing Google Maps coordinates and the wearer's personalized **Communication ID card** (guiding first responders on how to de-escalate without trauma).
 
 ---
 
 ## 🔍 Competitive Landscape Comparison
 
-| Feature / System | NeuroTranslator | Avaz / Proloquo2Go ($300) | AngelSense / SafeReturn | NeuroBridge (Hack2Health 2.0) |
+| System | Primary Paradigm | Modality | Intent Translation | Mechanism Differentiator |
 |---|---|---|---|---|
-| **Social Re-Entry Flight Simulator** | ❌ None | ❌ None | ❌ None | ✅ **LifeConnect (Cafeteria, Projects, Banter, Cafes)** |
-| **Peer Circles & Passion Connect** | ❌ None | ❌ None | ❌ None | ✅ **Inclusive Peer Hub (Robotics, Art, Gaming, STEM)** |
-| **Live Social Wingman & Turn Flowmeter** | ❌ None | ❌ None | ❌ None | ✅ **Real-time turn balance & special-interest bridge** |
-| **Two-Way Live Subtext Clarification** | ❌ Review only | ❌ None | ❌ None | ✅ **Mid-conversation, both directions, live** |
-| **Multimodal Inputs in Unified Feed** | ❌ Text only | ❌ AAC grid only | ❌ No conversation | ✅ **Speech + Typed AAC + Switch Scan + Gestures** |
-| **Calibrated Personal Stim Gestures** | ❌ None | ❌ None | ❌ None | ✅ **MediaPipe 63D vectors (False-Silence Principle)** |
-| **Crisis Safety Net with Real Dispatch** | ❌ None | ❌ None | ⚠️ Passive surveillance | ✅ **Wearer-controlled SSE + Real Email + GPS** |
-| **Wearer Sovereignty (Zero Surveillance)** | ❌ No | ❌ N/A | ❌ Strict parental tracker | ✅ **100% wearer controlled, zero surveillance** |
+| **The Social Express** | Scripted animated curriculum | Video lessons | ❌ None (prescriptive social rules) | Teaches normative neurotypical masking; no live in-conversation support. |
+| **Floreo** | Immersive VR roleplay | VR headset + iPad | ❌ None (adult co-pilot required) | Controlled drills for clinics; requires dedicated VR hardware and adult supervision. |
+| **Goblin.tools (The Judge)** | Asynchronous AI text tool | Static web text | ⚠️ One-way (user-initiated text analysis) | Standalone tone analysis; not integrated into live two-way spoken conversation. |
+| **Proloquo2Go ($249.99)** | Grid-based AAC communication | iPad touch grid | ❌ None (symbol speech generator) | Specialized AAC voice output; lacks bidirectional subtext bridging or peer scaffolding. |
+| **NeuroBridge (Hack2Health 2.0)** | **Live Multimodal Conversation & Re-Entry** | **Web (Speech, AAC, Switch, Stims)** | ✅ **Bidirectional (Both speakers, live)** | **Unified multimodal timeline + bidirectional double-empathy clarification + sovereign emergency net.** |
 
 ---
 
@@ -86,79 +70,76 @@ A realistic, interactive scenario simulator designed specifically for homeschool
   /frontend                      -> React 19 + Vite + Tailwind CSS
     /src
       /components
-        SocialOrbit.jsx          -> LifeConnect: Social re-entry simulator, decoder, coach, battery
+        SocialOrbit.jsx          -> LifeConnect: Social re-entry simulator, decoder, coach
         PeerCircles.jsx          -> Inclusive peer circles & shared passion buddy hub
         ConversationBridge.jsx   -> Unified timeline + Live Social Wingman & Turn Flowmeter
-        GestureTranslation.jsx   -> MediaPipe HandLandmarker: calibrated stims -> bridge turns
-        BridgeInsights.jsx       -> Honest zero-start analytics & input-channel breakdown
-        HowItWorks.jsx           -> Clinical & empirical science (Double Empathy, Social Cliff)
-        SafetyDashboard.jsx      -> Wearer biometric safety meters, manual SOS, fall simulation
+        GestureTranslation.jsx   -> MediaPipe HandLandmarker with rolling 12-frame kinematic buffer
+        BridgeInsights.jsx       -> Zero-start analytics & input-channel breakdown
+        HowItWorks.jsx           -> Double Empathy science & transition literature
+        SafetyDashboard.jsx      -> Wearer biometric meters, manual SOS, fall simulation
         GuardianDashboard.jsx    -> Guardian console: live SSE, GPS, email dispatch
         SettingsPanel.jsx        -> Sovereignty toggles, school context, special interests
       /hooks
         useSpeechRecognition.js  -> Web Speech API with interim results
         useMotionSensor.js       -> DeviceMotion API with fall/distress simulators
-      App.jsx                    -> Top navigation, turn router, ?view=guardian, pitch deck
+      App.jsx                    -> Top navigation, turn router, ?view=guardian
   /backend                       -> Node.js + Express (ES Modules)
     /routes
       socialConnect.js           -> /api/social-connect: scenarios, interact, wingman, circles
-      analyze.js                 -> /api/analyze: Google Gemini LLM / adaptive heuristic engine
+      analyze.js                 -> /api/analyze: Google Gemini LLM / adaptive heuristic fallback
       feedback.js                -> /api/feedback: zero-start tallies, adaptive context
       gestures.js                -> /api/gestures: 63-coordinate hand landmark vectors
-      alert.js                   -> /api/alert + SSE /events + Nodemailer email dispatch
+      alert.js                   -> /api/alert + SSE /events + Resend/Nodemailer email dispatch
       profile.js                 -> /api/profile: whitelist-merged settings + emergency card
     server.js                    -> Express server on port 3001, JSON 404s, 32 KB limit
-  /shared
-    types.js                     -> Shared types, social context, and default profile
-  backend/test-suite.js          -> 15 automated end-to-end tests (100% PASS)
+  backend/test-suite.js          -> 18 automated end-to-end tests (17 passed, 1 adversarial failure)
 ```
 
 ---
 
-## 🧪 Automated Test Suite (15/15 Passing)
+## 🧪 Automated Test Suite & Real Adversarial Results
 
-Run the full end-to-end test suite:
+Run the automated test suite:
 ```bash
 node backend/test-suite.js                           # Against local server
 node backend/test-suite.js https://hack2health.vercel.app  # Against production
 ```
 
-### Covered Test Matrix:
-1. ✅ **API Health & Version Check** (Healthy, v3.0.0, provider report)
-2. ✅ **Settings Panel: Scanning Keyboard & Speed Profile Update**
-3. ✅ **Phase 1: Direct Typed AAC Input Turn Analysis**
-4. ✅ **Phase 1: Switch-Scanning AAC Input Turn Analysis**
-5. ✅ **Phase 2: Gesture Match Unified Timeline**
-6. ✅ **Phase 3: Multimodal Input Breakdown (Speech, Typed, Scan, Gesture)**
-7. ✅ **Adaptive Learning: Downvoting Idioms triggers suppression rule**
-8. ✅ **Safety Net: Fall Trigger & Real Guardian Email Dispatch**
-9. ✅ **Fresh Session Guarantee: /api/feedback/reset zeroes ALL tallies**
-10. ✅ **Natural Phrasing: Free-typed corrections without keywords clarified**
+### Actual Test Run Results (17 Passed | 1 Failed):
+1. ✅ **API Health & Version Check** (Healthy, v3.0.0)
+2. ✅ **Settings Panel**: Switch-scanning keyboard & speed profile persistence
+3. ✅ **Direct Typed AAC Input**: `/api/analyze` with `inputMethod="typed"`
+4. ✅ **Switch-Scanning AAC Input**: `/api/analyze` with `inputMethod="scanning"`
+5. ✅ **Gesture Match Unified Timeline**: `/api/analyze` with `inputMethod="gesture"`
+6. ✅ **Multimodal Input Breakdown**: Verified real-time telemetry tally
+7. ✅ **Adaptive Learning**: Idiom downvoting triggers dynamic suppression rule
+8. ✅ **Safety Net**: Fall impact trigger & emergency email dispatch payload
+9. ✅ **Fresh Session Guarantee**: `/api/feedback/reset` zeroes all counts
+10. ✅ **Natural Phrasing**: Free-typed correction without keywords clarified
 11. ✅ **Communication ID & Guardian Email Persistence**
-12. ✅ **LifeConnect Scenarios: GET /api/social-connect/scenarios**
-13. ✅ **LifeConnect Simulation: POST /api/social-connect/interact (Decoder & Coach)**
-14. ✅ **Social Wingman: POST /api/social-connect/wingman (Interest Bridging)**
-15. ✅ **Peer Hub: GET /api/social-connect/circles (Inclusive Circles)**
+12. ✅ **LifeConnect Scenarios**: Scenario bank retrieval
+13. ✅ **LifeConnect Simulation**: Multi-turn decoder and coach evaluation
+14. ✅ **Social Wingman**: Real-time special-interest bridging suggestions
+15. ✅ **Peer Hub**: Interest-anchored peer circle retrieval
+16. ✅ **Adversarial Test A (Speech Disfluency)**: `"Um... like... I... I am really, really mad right now, please just... stop."` &rarr; Correctly extracts boundary despite stutter.
+17. ✅ **Adversarial Test B (Paraphrased Sarcasm)**: `"Oh great, another unexpected delay to ruin our afternoon."` &rarr; Correctly identifies multi-clause sarcasm.
+18. ❌ **Adversarial Test C (Typo / Noisy AAC)**: `"neeeed a brek to loud now"` &rarr; **FAILED (clarification: null)**.  
+    *Significance*: Demonstrates the real-world limitation of offline regex heuristics when lexical noise bypasses dictionary roots, proving why a production deployment relies on an active LLM or phonetic spell-checker.
 
 ---
 
-## 🔬 Scientific & Empirical Grounding
+## ⚠️ Acknowledged Technical Limitations
 
-1. **The Double Empathy Problem (Milton, 2012)**:
-   Research by Dr. Damian Milton demonstrates that autistic communication breakdowns are not due to an autistic "deficit," but a bi-directional mismatch in communicative styles between different neurotypes. NeuroBridge provides bi-directional translation so neither person is forced to mask.
-2. **The Social Cliff & Homeschool / Special-Ed Isolation**:
-   Studies from the Interactive Autism Network (IAN) and CDC document that over 30% of autistic students spend formative years homeschooled or in segregated classrooms. Without scaffolded peer re-entry tools like **LifeConnect**, transition into adulthood carries elevated rates of depression and isolation.
-3. **Special-Interest Anchoring (Baron-Cohen et al.)**:
-   Neurodivergent individuals form deeper, more stable friendships when bonded over shared intense passions (coding, gaming, robotics, science) rather than superficial neurotypical small talk. **Peer Circles** leverages this exact mechanism.
-4. **The False-Silence Principle in Assistive Tech**:
-   In stim-gesture matching, a false positive puts unintended words in an autistic person's mouth. NeuroBridge enforces an Euclidean threshold: unmatched stims produce dignified silence, never false guesses.
+1. **Browser Foreground Constraint for Motion Sensors**:
+   The current prototype runs as a client web application using the `DeviceMotion` API. While fully functional when the browser tab is open, modern mobile operating systems (iOS Safari and Android Chrome) throttle JavaScript execution and sensor polling when the phone is locked or backgrounded. A field-ready production version requires an OS-native background service (e.g. Android Foreground Service or iOS CoreMotion daemon).
+2. **Kinematic Buffer vs. Learned Temporal Sequence Model**:
+   The gesture translation pipeline uses MediaPipe 3D joint landmarks combined with a rolling 12-frame (~800ms) kinematic buffer to measure velocity and trajectory oscillations (separating active vibration stims from static resting poses). While this filters out false positives, it is a kinematic thresholding heuristic, **not a learned sequential temporal model** (such as DTW, Hidden Markov Models, or an LSTM), and cannot parse multi-stage continuous sign sequences.
+3. **Clinical Validation**:
+   This is a 48-hour functional prototype designed to demonstrate feasibility and architectural viability. It has not undergone formal clinical trials or Speech-Language Pathologist (SLP) validation. Future work centers on co-design partnerships with neurodivergent self-advocacy groups and licensed SLPs.
 
 ---
 
 ## 🚀 Quickstart Guide
-
-### Prerequisites
-- Node.js v18+ (tested on Node v24), npm v9+
 
 ### 1. Install Dependencies
 ```bash
@@ -171,6 +152,11 @@ npm run postinstall
 PORT=3001
 GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-flash-latest
+
+# Optional: Real Email Delivery via Resend (defaults to local Ethereal preview if unset)
+RESEND_API_KEY=re_your_resend_key_here
+RESEND_FROM=NeuroBridge Alert <onboarding@resend.dev>
+GUARDIAN_EMAIL=your_guardian_email@example.com
 ```
 
 ### 3. Launch Development
@@ -182,8 +168,4 @@ npm run dev:backend
 npm run dev:frontend
 ```
 
-Open **http://localhost:5173** to experience NeuroBridge. Open **http://localhost:5173/?view=guardian** on a phone for the real-time guardian console!
-
----
-
-*NeuroBridge was developed with dedication to autistic autonomy, social connectivity, and safety for Hack2Health 2.0.*
+Open **http://localhost:5173** for the main app. Open **http://localhost:5173/?view=guardian** on a mobile device or second monitor for the real-time guardian console.

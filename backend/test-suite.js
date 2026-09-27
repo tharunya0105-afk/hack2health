@@ -295,6 +295,57 @@ async function runTestSuite(baseUrl = 'http://localhost:3001') {
     }
   });
 
+  // 16. Adversarial Case A: Disfluent / Hesitant Speech Transcript
+  await test('Adversarial Test A: Disfluent Speech ("Um... like... I... I am really, really mad right now, please just... stop.")', async () => {
+    const res = await fetch(`${baseUrl}/api/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        transcript: 'Um... like... I... I am really, really mad right now, please just... stop.',
+        speaker: 'autistic',
+        inputMethod: 'speech'
+      })
+    });
+    const data = await res.json();
+    if (!data.clarification || data.category !== 'bluntness') {
+      throw new Error(`Expected bluntness clarification despite stutter/filler words, got: ${JSON.stringify(data)}`);
+    }
+  });
+
+  // 17. Adversarial Case B: Paraphrased / Indirect Neurotypical Sarcasm
+  await test('Adversarial Test B: Paraphrased Sarcasm ("Oh great, another unexpected delay to ruin our afternoon.")', async () => {
+    const res = await fetch(`${baseUrl}/api/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        transcript: 'Oh great, another unexpected delay to ruin our afternoon.',
+        speaker: 'neurotypical',
+        inputMethod: 'speech'
+      })
+    });
+    const data = await res.json();
+    if (!data.clarification || data.category !== 'sarcasm') {
+      throw new Error(`Expected sarcasm clarification for multi-clause sentence, got: ${JSON.stringify(data)}`);
+    }
+  });
+
+  // 18. Adversarial Case C: Typo / Noisy AAC Input (Tests resilience to real-world spelling noise)
+  await test('Adversarial Test C: Typo / Noisy Typed AAC ("neeeed a brek to loud now")', async () => {
+    const res = await fetch(`${baseUrl}/api/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        transcript: 'neeeed a brek to loud now',
+        speaker: 'autistic',
+        inputMethod: 'typed'
+      })
+    });
+    const data = await res.json();
+    if (!data.clarification) {
+      throw new Error(`Typo/noisy input unhandled by engine (returned clarification: null). Exposes keyword-matching fragility when lexical noise ('brek', 'to loud') bypasses regex rules.`);
+    }
+  });
+
   console.log(`\n======================================================`);
   console.log(`🏁 TEST SUITE FINISHED: ${passed} PASSED | ${failed} FAILED`);
   console.log(`======================================================\n`);

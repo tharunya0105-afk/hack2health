@@ -40,7 +40,7 @@ const STORAGE_KEYS = {
 // National Level Submission Problem & Solution Definition for Hack2Health 2.0
 const PROBLEM_BANNER = {
   id: 'nb-explainer',
-  problem: 'Many autistic youth are homeschooled or study in separate special schools, facing acute social isolation from mainstream peer life. Misreading hidden subtext (banter, teasing, ambiguous cues) and sensory fatigue create a severe barrier to taking part in normal community life.',
+  problem: 'Autistic people often communicate differently — and misread each other in both directions. During moments of sensory overload or shutdown, many also experience situational mutism, becoming temporarily unable to call for help even when they need it.',
   solution: 'provides the complete solution: LifeConnect interactive scenario flight simulator for confident peer re-entry, inclusive Peer Circles, real-time two-way subtext translation across speech, typed AAC, switch-scanning, and gestures, plus an autonomous biometric safety net. Always wearer-controlled — empowering autistic individuals to live normal, connected lives.'
 };
 
@@ -716,10 +716,10 @@ export default function App() {
               <div className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-950/70 via-indigo-950/60 to-slate-900/80 border border-emerald-500/40">
                 <div className="flex items-center gap-2 text-emerald-400 font-bold mb-1">
                   <ShieldCheck className="w-4 h-4" />
-                  The National Level Winning Differentiator (Say this to the judges)
+                  Core Pitch Differentiator (Say this to the judges)
                 </div>
                 <p className="text-slate-200 italic leading-relaxed">
-                  "Over 30% of autistic youth are homeschooled or attend segregated special schools — isolated from mainstream peer life and dreading the 'Social Cliff'. NeuroBridge is the first complete ecosystem that solves this: giving them an interactive flight simulator (LifeConnect) to practice cafeteria and project scenarios, a live conversation wingman, inclusive peer circles, 4 sovereign AAC input channels, and an autonomous safety net. We don't watch autistic people from afar; we equip them to live normal, connected lives."
+                  "Over 40% of autistic students spend their school years in segregated classrooms or separate schools (NCES Table 204.60) — isolated from casual peer life and facing 'The Social Cliff' upon transition. NeuroBridge bridges this journey: giving them an interactive flight simulator (LifeConnect) to rehearse cafeteria and group project scenarios, a live bidirectional conversation wingman, inclusive peer circles, 4 sovereign input channels, and an autonomous emergency net. Safety tools watch autistic people; NeuroBridge equips them."
                 </p>
               </div>
 
@@ -780,7 +780,7 @@ export default function App() {
 
               {/* Step 6: Empirical Rigor */}
               <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
-                <strong className="text-slate-200">15/15 Automated Test Suite & Scientific Grounding:</strong> Run <code>node backend/test-suite.js</code> to prove all 15 clinical and multimodal tests pass with zero mock failures. Grounded in Dr. Damian Milton's Double Empathy Problem (2012) and CDC elopement statistics.
+                <strong className="text-slate-200">18 Automated Tests & Scientific Grounding:</strong> Run <code>node backend/test-suite.js</code> to verify all multimodal endpoints and real adversarial cases. Grounded in Dr. Damian Milton's Double Empathy Problem (2012) and NCES educational transition data.
               </div>
             </div>
 

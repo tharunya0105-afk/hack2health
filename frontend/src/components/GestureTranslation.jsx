@@ -51,6 +51,14 @@ export function GestureTranslation({
   const lastDetectedHandRef = useRef(null);
   const lastNormalizedVectorRef = useRef(null);
   const lastDetectionTimestampRef = useRef(0);
+  const recentFramesRef = useRef([]); // Rolling temporal buffer (last 12 frames)
+
+  const [motionDynamics, setMotionDynamics] = useState({
+    velocity: 0,
+    oscillationCount: 0,
+    pattern: 'idle', // 'idle' | 'steady_hold' | 'dynamic_vibration' | 'movement'
+    bufferDepth: 0
+  });
 
   const GESTURES_STORAGE_KEY = 'neurobridge_custom_gestures_v3';
 
@@ -257,11 +265,60 @@ export function GestureTranslation({
             const results = landmarker.detectForVideo(video, now);
             if (results.landmarks && results.landmarks.length > 0) {
               const hand = results.landmarks[0];
+              const nowMs = Date.now();
               lastDetectedHandRef.current = hand;
-              lastDetectionTimestampRef.current = Date.now();
+              lastDetectionTimestampRef.current = nowMs;
               const normalized = normalizeVector(hand);
               lastNormalizedVectorRef.current = normalized;
               setActiveLandmarks(normalized);
+
+              // Push frame to rolling temporal buffer (keep last 12 frames, ~800-1000ms history)
+              const wrist = hand[0];
+              const indexTip = hand[8];
+              const buffer = recentFramesRef.current;
+              buffer.push({
+                timestamp: nowMs,
+                wrist: { x: wrist.x, y: wrist.y },
+                indexTip: { x: indexTip.x, y: indexTip.y }
+              });
+              if (buffer.length > 12) buffer.shift();
+
+              // Compute velocity & direction reversals (oscillation) over buffer
+              let totalDisplacement = 0;
+              let totalDt = 0;
+              let reversals = 0;
+              let prevDx = 0;
+              let prevDy = 0;
+
+              for (let i = 1; i < buffer.length; i++) {
+                const pPrev = buffer[i - 1];
+                const pCurr = buffer[i];
+                const dt = (pCurr.timestamp - pPrev.timestamp) / 1000;
+                if (dt > 0) {
+                  const dx = (pCurr.wrist.x - pPrev.wrist.x) + (pCurr.indexTip.x - pPrev.indexTip.x);
+                  const dy = (pCurr.wrist.y - pPrev.wrist.y) + (pCurr.indexTip.y - pPrev.indexTip.y);
+                  totalDisplacement += Math.sqrt(dx * dx + dy * dy);
+                  totalDt += dt;
+                  if (i > 1) {
+                    if ((dx > 0.003 && prevDx < -0.003) || (dx < -0.003 && prevDx > 0.003)) reversals++;
+                    if ((dy > 0.003 && prevDy < -0.003) || (dy < -0.003 && prevDy > 0.003)) reversals++;
+                  }
+                  prevDx = dx;
+                  prevDy = dy;
+                }
+              }
+
+              const avgVelocity = totalDt > 0 ? Number((totalDisplacement / totalDt).toFixed(2)) : 0;
+              const isOscillating = reversals >= 2 && avgVelocity > 0.16;
+              const isSteadyHold = avgVelocity < 0.20 && buffer.length >= 3;
+              const currentPattern = isOscillating ? 'dynamic_vibration' : isSteadyHold ? 'steady_hold' : 'movement';
+
+              setMotionDynamics({
+                velocity: avgVelocity,
+                oscillationCount: reversals,
+                pattern: currentPattern,
+                bufferDepth: buffer.length
+              });
 
               // If in translate mode, evaluate against stored gestures
               if (mode === 'translate' && gestures.length > 0 && normalized) {
@@ -277,22 +334,42 @@ export function GestureTranslation({
                 }
 
                 // Euclidean distance threshold for matching hand gesture
-                if (lowestDistance < 0.85) {
-                  const conf = Math.max(55, Math.min(99, Math.round((1 - lowestDistance / 1.2) * 100)));
-                  setDetectedMatch({
-                    label: bestMatch.label,
-                    confidence: conf,
-                    distance: Number(lowestDistance.toFixed(2))
-                  });
+                if (lowestDistance < 0.85 && bestMatch) {
+                  // Gating: dynamic stim gestures require active motion/oscillation;
+                  // static boundary gestures require a steady hold (>= 3 frames).
+                  const isDynamicStim = (bestMatch.label + ' ' + (bestMatch.description || '')).toLowerCase().match(/stim|vibrat|flap|excit/);
+                  let passesTemporalFilter = true;
 
-                  // Emit to shared ConversationBridge timeline (Phase 2)
-                  const nowMs = Date.now();
-                  if (nowMs - lastEmittedTimeRef.current > 5000 || lastEmittedLabelRef.current !== bestMatch.label) {
-                    lastEmittedTimeRef.current = nowMs;
-                    lastEmittedLabelRef.current = bestMatch.label;
-                    if (onEmitGestureTurn) {
-                      onEmitGestureTurn(bestMatch.label);
+                  if (isDynamicStim) {
+                    if (!isOscillating && avgVelocity < 0.18) {
+                      passesTemporalFilter = false;
                     }
+                  } else {
+                    if (!isSteadyHold) {
+                      passesTemporalFilter = false;
+                    }
+                  }
+
+                  if (passesTemporalFilter) {
+                    const conf = Math.max(55, Math.min(99, Math.round((1 - lowestDistance / 1.2) * 100)));
+                    setDetectedMatch({
+                      label: bestMatch.label,
+                      confidence: conf,
+                      distance: Number(lowestDistance.toFixed(2)),
+                      velocity: avgVelocity,
+                      pattern: currentPattern
+                    });
+
+                    // Emit to shared ConversationBridge timeline (Phase 2)
+                    if (nowMs - lastEmittedTimeRef.current > 5000 || lastEmittedLabelRef.current !== bestMatch.label) {
+                      lastEmittedTimeRef.current = nowMs;
+                      lastEmittedLabelRef.current = bestMatch.label;
+                      if (onEmitGestureTurn) {
+                        onEmitGestureTurn(bestMatch.label);
+                      }
+                    }
+                  } else {
+                    setDetectedMatch(null);
                   }
                 } else {
                   // False silence: better to show nothing than a wrong guess
@@ -306,6 +383,8 @@ export function GestureTranslation({
                 lastNormalizedVectorRef.current = null;
                 setActiveLandmarks(null);
                 setDetectedMatch(null);
+                recentFramesRef.current = [];
+                setMotionDynamics({ velocity: 0, oscillationCount: 0, pattern: 'idle', bufferDepth: 0 });
               }
             }
           } catch (e) {
@@ -430,10 +509,23 @@ export function GestureTranslation({
 
   // Demo simulator button (ensures 100% reliable demo pitch without camera setup)
   const handleSimulateGestureTrigger = (gesture) => {
+    const isDynamicStim = (gesture.label + ' ' + (gesture.description || '')).toLowerCase().match(/stim|vibrat|flap|excit/);
+    const pattern = isDynamicStim ? 'dynamic_vibration' : 'steady_hold';
+    const velocity = isDynamicStim ? 0.38 : 0.08;
+
+    setMotionDynamics({
+      velocity,
+      oscillationCount: isDynamicStim ? 4 : 0,
+      pattern,
+      bufferDepth: 12
+    });
+
     setDetectedMatch({
       label: gesture.label,
       confidence: 88,
-      distance: 0.42
+      distance: 0.42,
+      pattern,
+      velocity
     });
 
     // Phase 2: Emit to Conversation Bridge timeline
@@ -603,15 +695,22 @@ export function GestureTranslation({
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-[10px] uppercase font-bold tracking-wider text-cyan-300 flex items-center gap-1">
                       <Sparkles className="w-3.5 h-3.5" />
-                      Wearer Intent Translation (Nearest Neighbor)
+                      Wearer Intent Translation (Nearest Neighbor + Temporal Gating)
                     </span>
                     <span className="text-xs font-mono font-bold text-emerald-400">
                       {detectedMatch.confidence}% match
                     </span>
                   </div>
-                  <h4 className="text-lg font-black text-white">
-                    "{detectedMatch.label}"
-                  </h4>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <h4 className="text-lg font-black text-white">
+                      "{detectedMatch.label}"
+                    </h4>
+                    {detectedMatch.pattern && (
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-900/60 text-purple-200 border border-purple-500/40 font-mono">
+                        {detectedMatch.pattern === 'dynamic_vibration' ? '⚡ Verified Vibration Stim' : '🛡️ Verified Steady Hold'}
+                      </span>
+                    )}
+                  </div>
                   <div className="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
                     <div 
                       className="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 transition-all duration-300"
@@ -629,6 +728,43 @@ export function GestureTranslation({
                 </div>
               )}
             </div>
+
+            {/* Live Temporal Kinematics & Rolling Buffer Telemetry */}
+            {isCameraActive && (
+              <div className="mt-3 p-3 rounded-2xl bg-slate-900/90 border border-slate-800 text-xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-300 flex items-center gap-1.5 text-[11px]">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    Temporal Kinematics (Rolling 12-Frame Buffer)
+                  </span>
+                  <span className="font-mono text-[10px] text-slate-400">
+                    Window: ~800ms ({motionDynamics.bufferDepth} frames)
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-[11px]">
+                  <div className="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+                    <span className="text-slate-500 block text-[9px] uppercase font-bold">Velocity</span>
+                    <span className="font-mono text-cyan-300 font-bold">{motionDynamics.velocity} norm/s</span>
+                  </div>
+                  <div className="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+                    <span className="text-slate-500 block text-[9px] uppercase font-bold">Oscillations</span>
+                    <span className="font-mono text-purple-300 font-bold">{motionDynamics.oscillationCount} reversals</span>
+                  </div>
+                  <div className="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+                    <span className="text-slate-500 block text-[9px] uppercase font-bold">Kinematic Pattern</span>
+                    <span className={`font-semibold capitalize text-[10px] ${
+                      motionDynamics.pattern === 'dynamic_vibration'
+                        ? 'text-purple-400'
+                        : motionDynamics.pattern === 'steady_hold'
+                        ? 'text-emerald-400'
+                        : 'text-slate-400'
+                    }`}>
+                      {motionDynamics.pattern === 'dynamic_vibration' ? '⚡ Dynamic Vibration' : motionDynamics.pattern === 'steady_hold' ? '🛡️ Steady Hold' : motionDynamics.pattern === 'movement' ? '🌊 Hand In Motion' : 'Standby'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {cameraError && (
               <div className="mt-3 p-3 rounded-xl bg-amber-950/50 border border-amber-600/50 text-amber-200 text-xs flex items-start gap-2">
